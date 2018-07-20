@@ -62,9 +62,7 @@ function customerSelection(res) {
                         if (isNaN(input1)) {
                             return (" \n Error!! Enter a valid quantity.");
                         }
-                        /*                     if (parseInt(input1) > res[parseInt(input) - 1].stock_quantity) {
-                                                return (" \n Not enough stock available to fulfill the order!");
-                                            } */
+
                         else {
                             return true;
                         }
@@ -72,12 +70,11 @@ function customerSelection(res) {
 
                 }
             ]).then(function (answer) {
-                /*                 console.log("ID: " + answer.productId);
-                                console.log("QTY: " + answer.orderQty);
-                                console.log("qty of it" + results[1].stock_quantity); */
+
 
                 if (parseInt(answer.orderQty) > results[parseInt(answer.productId) - 1].stock_quantity) {
-                    console.log(" \n Not enough stock available to fulfill the order!");
+                    console.log(" \n We only have " + results[parseInt(answer.productId) - 1].stock_quantity + " pcs in stock! Please select a different product or a lower quantity.");
+                    customerSelection(res);
                 }
                 else {
                     var total = parseInt(answer.orderQty) * (results[parseInt(answer.productId) - 1].price);
