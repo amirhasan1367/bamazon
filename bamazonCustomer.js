@@ -46,7 +46,7 @@ function customerSelection(res) {
                         if (isNaN(input)) {
                             return (" \n Error!! Enter a valid product by entering the product id on the left column");
                         }
-                        if (parseInt(input) > 5) {
+                        if (parseInt(input) > 10) {
                             return (" \n Error!! Enter a valid product by entering the product id on the left column");
                         }
                         else {
