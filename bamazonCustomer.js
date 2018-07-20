@@ -79,17 +79,31 @@ function customerSelection(res) {
                 if (parseInt(answer.orderQty) > results[parseInt(answer.productId) - 1].stock_quantity) {
                     console.log(" \n Not enough stock available to fulfill the order!");
                 }
-                else{
+                else {
                     var total = parseInt(answer.orderQty) * (results[parseInt(answer.productId) - 1].price);
-                    console.log ("Your total is: " + total);
-                    updateInventory();
+                    console.log("Your total is: " + total);
+                    connection.query(
+                        "UPDATE products SET ? WHERE ?",
+                        [
+                            {
+                                stock_quantity: results[parseInt(answer.productId) - 1].stock_quantity - answer.orderQty,
+                            },
+                            {
+                                item_id: answer.productId,
+                            }
+                        ],
+                        function (error) {
+                            if (error) throw err;
+                            console.log("Your purchase was successful!");
+                            //readProducts();
+                        }
+
+
+                    )
+                    connection.end();
                 }
             })
-        
+
     });
 }
 
-function updateInventory(){
-
-    connection.end();
-}
